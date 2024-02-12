@@ -1,0 +1,32 @@
+### HEALTHCHECK
+GET http://localhost:3000/healthcheck
+Accept: application/json
+
+### USER
+### Register
+POST http://localhost:3000/api/v1/auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "khilmi",
+    "password": "khilmi1234",
+    "name": "khilmi"
+}
+
+
+### Login
+POST http://localhost:3000/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "khilmi",
+    "password": "khilmi1234"
+}
+
+### Get current user
+GET http://localhost:3000/api/v1/users/current
+Accept: application/json
+Content-Type: application/json
+Authorization: 400177bb-e965-4665-ba18-9d067deb392a
