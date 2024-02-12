@@ -13,7 +13,7 @@ const _authMiddleware = async (req: AuthRequest, res: Response, next: NextFuncti
 
         if (!token) {
             res.status(401).json({
-                errrs : "unauthorized",
+                errors : "unauthorized",
             }).end()
         } else {
             const user = await database.user.findFirst({
@@ -24,7 +24,7 @@ const _authMiddleware = async (req: AuthRequest, res: Response, next: NextFuncti
 
             if (!user) {
                 res.status(401).json({
-                    errrs : "unauthorized",
+                    errors : "unauthorized",
                 }).end()
             } else {
                 req.user = user

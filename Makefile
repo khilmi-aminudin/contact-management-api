@@ -5,7 +5,7 @@ postgres:
 	docker run --name postgres -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres
 
 execDb:
-	docker exec -it postgres psql -d user_management_db
+	docker exec -it postgres psql -d contact_management_db
 
 runDb:
 	docker start postgres

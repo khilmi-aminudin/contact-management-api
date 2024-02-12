@@ -5,6 +5,7 @@ import database from '../app/database'
 import { ResponseError } from '../error/response-error'
 import bcrypt from 'bcrypt'
 import {v4 as uuid} from "uuid"
+import user from '../entity/user'
 
 const register = async (request: model.CreateUserRequest): Promise<model.UserResponse> => {
     const user = validation.validate(userValidation.createUser, request)
@@ -52,6 +53,42 @@ const get = async (username: string ): Promise<model.UserResponse> => {
     return user
 }
 
+const logout = async (username: string ): Promise<String> => {
+    username = validation.validate(userValidation.getUserByUsername, username)
+
+    const user = await database.user.findUnique({
+        where: {
+            username: username
+        },
+        select: {
+            token: true
+        }
+    })
+
+    if (!user) {
+        throw new ResponseError(404, 'user not found')
+    }
+
+    const token = await database.user.update({
+        where: {
+            username: username
+        },
+        data: {
+            token: null
+        },
+        select: {
+            token: true
+        }
+    });
+
+    if (!token) {
+        return "Failed"
+    }
+    
+    return "OK"
+    
+}
+
 const login = async (request: model.GetUserByUsernameAndPassword) : Promise<{token: string | null}> => {
     request = validation.validate(userValidation.loginUser, request)
 
@@ -89,8 +126,38 @@ const login = async (request: model.GetUserByUsernameAndPassword) : Promise<{tok
     })
 }
 
+const update = async (user: user ,request: model.UpdateUserRequest): Promise<model.UserResponse>  => {
+    request = validation.validate(userValidation.updateUser, request)
+
+    const userInDb = await database.user.count({
+        where: {
+            username: user.username,
+            token: user.token
+        }
+    })
+
+    if (!userInDb) {
+        throw new ResponseError(404, "User not found")
+    }
+
+    return database.user.update({
+        where: {
+            username: user.username,
+            token: user.token
+        },
+        data: request,
+        select : {
+            username: true,
+            name: true
+        }
+    })
+
+}
+
 export default {
     register,
     login,
-    get
+    logout,
+    get,
+    update
 }
