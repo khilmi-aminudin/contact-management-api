@@ -57,6 +57,8 @@ const update = async (user: user, request: model.UpdateContactRequest): Promise<
 }
 
 const get = async (user: user, id: number): Promise<contact> => {
+    id = validation.validate(contactValidation.getContactById, id);
+
     const contact = await database.contact.findFirst({
         where: {
             id: id,
@@ -79,8 +81,41 @@ const get = async (user: user, id: number): Promise<contact> => {
     return contact
 }
 
+const remove = async (user: user, id: number) => {
+    id = validation.validate(contactValidation.getContactById, id);
+
+    const contact = await database.contact.findFirst({
+        where: {
+            id: id,
+            username: user.username
+        },
+        select: {
+            id: true,
+            username: true
+        }
+    })
+
+    if (!contact) {
+        throw new ResponseError(404, "Contact not found")
+    }
+
+    const res = await database.contact.delete({
+        where: {
+            id: id,
+            username: user.username
+        }
+    })
+
+    if (res) {
+        return "OK"
+    } else {
+        return "Failed"
+    }
+}
+
 export default {
     create,
     update,
-    get
+    get,
+    remove
 }   

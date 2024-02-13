@@ -81,3 +81,10 @@ Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
     "email": "akeno@mail.com",
     "phone": "6209090909090"
 }
+
+### Delete Contact
+DELETE  http://localhost:3000/api/v1/contacts/sds
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+

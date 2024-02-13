@@ -16,6 +16,7 @@ router.post('/api/v1/auth/logout', userController.logout)
 router.post('/api/v1/contacts', contactController.create)
 router.get('/api/v1/contacts/:id', contactController.get)
 router.put('/api/v1/contacts/:id', contactController.update)
+router.delete('/api/v1/contacts/:id', contactController.remove)
 
 export default {
     router

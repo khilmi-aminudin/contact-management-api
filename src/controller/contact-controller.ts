@@ -26,40 +26,41 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
         const user: user = authRequest.user
         const request: model.UpdateContactRequest = authRequest.body
         request.id = Number(authRequest.params.id)
-        
-        if (!request.id) {
-            res.status(400).json({
-                errors : "Invalid id"
-            })
-        } else {
-            const result = await service.update(user, request)
-            res.status(200).json({
-                data : result
-            })
-        }
+
+        const result = await service.update(user, request)
+        res.status(200).json({
+            data : result
+        })
     } catch (e) {
         next(e)
     }
 }
-
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const authRequest = req as AuthRequest
         const user: user = authRequest.user
         const id = Number(authRequest.params.id)
-        
-        if (!id) {
-            res.status(400).json({
-                errors : "Invalid id"
-            }).end()
-        } else {
-            const result = await service.get(user, id)
-            res.status(200).json({
-                data : result
-            })
-    
-        }
+
+        const result = await service.get(user, id)
+        res.status(200).json({
+            data : result
+        })
+    } catch (e) {
+        next(e)
+    }
+}
+
+const remove = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const authRequest = req as AuthRequest
+        const user: user = authRequest.user
+        const id = Number(authRequest.params.id)
+
+        const result = await service.remove(user, id)
+        res.status(200).json({
+            data : result
+        })
     } catch (e) {
         next(e)
     }
@@ -68,5 +69,6 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 export default {
     create,
     update,
-    get
+    get,
+    remove
 }
