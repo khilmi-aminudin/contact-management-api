@@ -113,9 +113,86 @@ const remove = async (user: user, id: number) => {
     }
 }
 
+const search = async (user: user, request : model.SearchContactsRequest): Promise<model.SearchContactsResponse> => {
+
+    request = validation.validate(contactValidation.searchContacts, request)
+    
+    const result: model.SearchContactsResponse = {
+        data : [],
+        paging: {
+            page : -1,
+            total_page: -1,
+            total_item: -1
+        }
+    } 
+
+    const filters: any[] = [
+        { username : user.username }
+    ]
+
+    if (request.name){
+        filters.push(               {
+            OR: [
+                {
+                    first_name: {
+                        contains: request.name
+                    }
+                },
+                {
+                    last_name: {
+                        contains: request.name
+                    }
+                }
+            ]
+        })
+    }
+
+    if (request.email){
+        filters.push(                {
+            email: {
+                contains: request.email
+            }
+        })
+    }
+
+    if (request.phone){
+        filters.push({
+            phone: {
+                contains: request.phone
+            }
+        })
+    }
+
+    const [page, size] = [Number(request.page), Number(request.size)]
+
+    const skip = (page - 1) * size 
+
+    const contacts : contact[] = await database.contact.findMany({
+        where: {
+            AND: filters
+        },
+        take: size,
+        skip: skip
+    })
+
+    const totalContacts = await database.contact.count({
+        where: {
+            AND: filters
+        }
+    })
+
+    result.data = contacts
+    result.paging.page = page
+    result.paging.total_page = Math.ceil(totalContacts / size)
+    result.paging.total_item = totalContacts
+
+    return result
+}
+
 export default {
     create,
     update,
     get,
-    remove
+    remove,
+    search
 }   

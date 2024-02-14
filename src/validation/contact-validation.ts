@@ -8,7 +8,7 @@ export const createContact = Joi.object({
 })
 
 export const updateContact = Joi.object({
-    id : Joi.number().positive().required(),
+    id : Joi.number().positive().required().label("contact_id"),
     first_name: Joi.string().min(3).max(100).required(),
     last_name: Joi.string().min(3).max(100).required(),
     email: Joi.string().min(3).max(100).email().required(),

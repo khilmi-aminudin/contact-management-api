@@ -66,9 +66,31 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const search = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const authRequest = req as AuthRequest
+        const user: user = authRequest.user
+        const request : model.SearchContactsRequest = {
+            name: req.query.name,
+            email: req.query.email,
+            phone: req.query.phone,
+            page: req.query.page,
+            size: req.query.size
+        }
+
+        const result = await service.search(user, request)
+        res.status(200).json({
+            data : result
+        })
+    } catch (e) {
+        next(e)
+    }
+}
+
 export default {
     create,
     update,
     get,
-    remove
+    remove,
+    search
 }
