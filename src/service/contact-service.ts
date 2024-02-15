@@ -81,7 +81,7 @@ const get = async (user: user, id: number): Promise<contact> => {
     return contact
 }
 
-const remove = async (user: user, id: number) => {
+const remove = async (user: user, id: number) : Promise<string> => {
     id = validation.validate(contactValidation.getContactById, id);
 
     const contact = await database.contact.findFirst({
@@ -127,7 +127,9 @@ const search = async (user: user, request : model.SearchContactsRequest): Promis
     } 
 
     const filters: any[] = [
-        { username : user.username }
+        { 
+            username : user.username 
+        }
     ]
 
     if (request.name){
