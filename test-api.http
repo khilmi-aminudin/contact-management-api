@@ -93,3 +93,50 @@ GET  http://localhost:3000/api/v1/contacts?page=1&size=15
 Accept: application/json
 Content-Type: application/json
 Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+### ADDRESS
+### Create
+POST http://localhost:3000/api/v1/contacts/4/addresses
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+{
+    "street" : "Jalan apa",
+    "city" : "Kota apa",
+    "province" : "Provinsi apa",
+    "country" : "Negara apa",
+    "postal_code" : "Kode pos"
+}
+
+### Get
+GET http://localhost:3000/api/v1/contacts/4/addresses/4
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+### Update
+PUT http://localhost:3000/api/v1/contacts/4/addresses/4
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+{
+    "street" : "Jalan PANAYA YANG JALAN",
+    "city" : "Kota apa",
+    "province" : "Provinsi apa",
+    "country" : "Negara apa",
+    "postal_code" : "Kode pos"
+}
+
+### Get All
+GET http://localhost:3000/api/v1/contacts/4/addresses
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+### Delete
+DELETE  http://localhost:3000/api/v1/contacts/4/addresses/4
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
