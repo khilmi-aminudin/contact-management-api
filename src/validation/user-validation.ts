@@ -7,7 +7,7 @@ export const createUser: Joi.ObjectSchema<model.CreateUserRequest> = Joi.object(
     name: Joi.string().min(3).max(100).required()
 })
 
-export const getUserByUsername = Joi.string().min(3).max(100).required()
+export const getUserByUsername = Joi.string().min(3).max(100).required().label("username")
 
 export const loginUser = Joi.object({
     username: Joi.string().min(3).max(100).required(),

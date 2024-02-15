@@ -25,4 +25,7 @@ start:
 runDev:
 	npm run dev
 
+mongo:
+	docker run -d -p 27017:27017 --name mongodb -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=secret mongo
+
 .PHONY: test, runDb

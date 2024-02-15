@@ -43,7 +43,53 @@ Accept: application/json
 Content-Type: application/json
 Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
 
-
 {
     "name": "khilmi aminudin"
 }
+
+
+### CONTACT
+### Create
+POST http://localhost:3000/api/v1/contacts
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+{
+    "first_name": "khilmi",
+    "last_name": "aminudin",
+    "email": "khilmi@mail.com",
+    "phone": "62099878687678"
+}
+
+### Get Contact
+GET http://localhost:3000/api/v1/contacts/1
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+
+### Update Contact
+PUT  http://localhost:3000/api/v1/contacts/1sfdsdf
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+{
+    "first_name": "Akeno",
+    "last_name": "Zahran Asadel",
+    "email": "akeno@mail.com",
+    "phone": "6209090909090"
+}
+
+### Delete Contact
+DELETE  http://localhost:3000/api/v1/contacts/sds
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
+
+### Search Contact
+GET  http://localhost:3000/api/v1/contacts?page=1&size=15
+Accept: application/json
+Content-Type: application/json
+Authorization: 791b26c4-04a3-4e4a-928b-5f8111a3c869
