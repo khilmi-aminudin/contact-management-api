@@ -3,7 +3,6 @@ import {Request, Response, NextFunction} from 'express'
 import service from '../service/contact-service'
 import user from '../entity/user'
 import * as model from "../model/contact-model"
-import { error } from 'console'
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -12,7 +11,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
         const request: model.CreateContactRequest = authRequest.body
         
         const result = await service.create(user, request)
-        res.status(200).json({
+        res.status(201).json({
             data : result
         })
     } catch (e) {
